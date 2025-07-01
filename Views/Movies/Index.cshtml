@@ -1,0 +1,375 @@
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+@* @model IEnumerable<FlixNow.Models.Movie> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Movies"; *@
+@* } *@
+@* <style> *@
+@*     body { *@
+@*         position: relative; *@
+@*         min-height: 100vh; *@
+@*         background: transparent; /* 图片主色调的深色，可换成 transparent */ *@
+@*     } *@
+
+@*         body::before { *@
+@*             content: ''; *@
+@*             position: fixed; *@
+@*             inset: 0; *@
+@*             z-index: -1; *@
+@*             background: url('/images/MovieTheater2.jpg') center center/cover no-repeat; *@
+@*             opacity: 0.40; *@
+@*             pointer-events: none; *@
+@*             /* backdrop-filter: blur(2px);  // 如果需要模糊效果可以打开 */ *@
+@*         } *@
+
+@*     .movie-cards-container { *@
+@*         display: flex; *@
+@*         flex-wrap: wrap; *@
+@*         gap: 32px; *@
+@*         justify-content: flex-start; *@
+@*         align-items: stretch; *@
+@*         margin-top: 32px; *@
+@*     } *@
+
+@*     .movie-card { *@
+@*         background: rgba(18,22,27,0.98); *@
+@*         border-radius: 18px; *@
+@*         box-shadow: 0 8px 32px #000b; *@
+@*         padding: 18px 18px 14px 18px; *@
+@*         width: 200px; *@
+@*         display: flex; *@
+@*         flex-direction: column; *@
+@*         align-items: center; *@
+@*         position: relative; *@
+@*         transition: transform 0.15s; *@
+@*         min-height: 350px; /* 控制最小高度，保证高度一致 */ *@
+@*     } *@
+
+@*         .movie-card:hover { *@
+@*             transform: translateY(-4px) scale(1.03); *@
+@*             box-shadow: 0 16px 32px #000e; *@
+@*         } *@
+
+@*     .movie-poster { *@
+@*         width: 145px; *@
+@*         height: 200px; *@
+@*         object-fit: cover; *@
+@*         border-radius: 10px; *@
+@*         margin-bottom: 14px; *@
+@*         box-shadow: 0 4px 16px #222; *@
+@*     } *@
+
+@*     .movie-title { *@
+@*         color: #fff; *@
+@*         font-size: 1.08rem; *@
+@*         font-weight: 600; *@
+@*         text-align: center; *@
+@*         min-height: 36px; *@
+@*         margin-bottom: 6px; *@
+@*     } *@
+
+@*     .movie-genre { *@
+@*         color: #35e9d8; *@
+@*         font-size: .98rem; *@
+@*         margin-bottom: 2px; *@
+@*     } *@
+
+@*     .movie-rating { *@
+@*         color: #ffd166; *@
+@*         font-size: 1rem; *@
+@*         margin-bottom: 10px; *@
+@*     } *@
+
+@*     .movie-buttons { *@
+@*         display: flex; *@
+@*         justify-content: center; *@
+@*         gap: 8px; *@
+@*         margin-top: 8px; *@
+@*         width: 100%; *@
+@*     } *@
+
+@*     .movie-btn { *@
+@*         padding: 5px 14px; *@
+@*         font-size: .97em; *@
+@*         border-radius: 999px; *@
+@*         border: none; *@
+@*         font-weight: 600; *@
+@*         transition: background 0.2s; *@
+@*     } *@
+
+@*         .movie-btn.details { *@
+@*             background: #1e90ff; *@
+@*             color: #fff; *@
+@*         } *@
+
+@*         .movie-btn.edit { *@
+@*             background: #25c469; *@
+@*             color: #fff; *@
+@*         } *@
+
+@*         .movie-btn.delete { *@
+@*             background: #e43c3c; *@
+@*             color: #fff; *@
+@*         } *@
+
+@*         .movie-btn.details:hover { *@
+@*             background: #2d5dde; *@
+@*         } *@
+
+@*         .movie-btn.edit:hover { *@
+@*             background: #1fbf59; *@
+@*         } *@
+
+@*         .movie-btn.delete:hover { *@
+@*             background: #b91515; *@
+@*         } *@
+
+@*     .create-btn { *@
+@*         display: block; *@
+@*         margin: 0 0 22px auto; *@
+@*         background: linear-gradient(90deg, #26e0ae, #2d5dde 85%); *@
+@*         color: #222; *@
+@*         font-weight: bold; *@
+@*         border-radius: 20px; *@
+@*         border: none; *@
+@*         padding: 8px 34px; *@
+@*         box-shadow: 0 2px 16px #1225; *@
+@*         letter-spacing: 1.5px; *@
+@*         font-size: 1.08em; *@
+@*     } *@
+
+@*         .create-btn:hover { *@
+@*             background: linear-gradient(90deg, #2d5dde 15%, #26e0ae 85%); *@
+@*             color: #fff; *@
+@*         } *@
+
+@* </style> *@
+
+@* <h1 class="text-center mb-4" style="color:#26e0ae; letter-spacing:2px;">Movies</h1> *@
+@* @if (User.IsInRole("Admin")) *@
+@* { *@
+@*     <a asp-action="Create" class="create-btn mb-4">+ Create New</a> *@
+@* } *@
+
+@* <div class="movie-cards-container"> *@
+@*     @foreach (var item in Model) *@
+@*     { *@
+@*         <div class="movie-card"> *@
+@*             @if (!string.IsNullOrEmpty(item.PosterUrl)) *@
+@*             { *@
+@*                 <img src="@item.PosterUrl" class="movie-poster" alt="@item.Title Poster" /> *@
+@*             } *@
+@*             else *@
+@*             { *@
+@*                 <div class="movie-poster d-flex align-items-center justify-content-center" style="background:#333; color:#aaa; font-size:1.2em;"> *@
+@*                     No Image *@
+@*                 </div> *@
+@*             } *@
+
+@*             <div class="movie-title">@item.Title</div> *@
+@*             <div class="movie-genre">@item.Genre</div> *@
+@*             <div class="movie-rating">Rating: @item.Rating</div> *@
+@*             <div class="movie-buttons"> *@
+@*                 @if (User.IsInRole("Admin")) *@
+@*                 { *@
+@*                     <a asp-action="Edit" asp-route-id="@item.Id" class="movie-btn edit">Edit</a> *@
+@*                     <a asp-action="Delete" asp-route-id="@item.Id" class="movie-btn delete">Delete</a> *@
+@*                 } *@
+@*                 <a asp-action="Details" asp-route-id="@item.Id" class="movie-btn details">Details</a> *@
+@*             </div> *@
+@*         </div> *@
+@*     } *@
+@* </div> *@
+@model IEnumerable<FlixNow.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+<style>
+    body {
+        position: relative;
+        min-height: 100vh;
+        background: transparent;
+    }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: url('/images/Movie2.jpg') center center/cover no-repeat;
+            opacity: 0.40;
+            pointer-events: none;
+        }
+
+    .movie-cards-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 40px 38px;
+        justify-items: center;
+        margin: 40px auto 0 auto;
+        max-width: 1500px;
+        padding: 0 20px;
+    }
+
+    .movie-card {
+        background: rgba(18,22,27,0.99);
+        border-radius: 10px;
+        box-shadow: 0 8px 36px #000c;
+        padding: 16px 8px 12px 8px; /* 上右下左，整体更窄 */
+        width: 255px; /* 稍微宽一点点以容纳大图 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        transition: transform 0.17s, box-shadow 0.17s;
+        min-height: 370px;
+    }
+
+        .movie-card:hover {
+            transform: translateY(-14px) scale(1.08); /* 浮得更高，放得更大 */
+            box-shadow: 0 24px 56px #000f; /* 阴影更大更浓 */
+        }
+            
+    .movie-poster {
+        width: 225px; /* 增大宽度 */
+        height: 300px; /* 增大高度 */
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 12px; /* 更小的下边距 */
+        box-shadow: 0 4px 20px #222a;
+    }
+
+    .movie-title {
+        color: #fff;
+        font-size: 1.18rem;
+        font-weight: 700;
+        text-align: center;
+        min-height: 40px;
+        margin-bottom: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    .movie-genre {
+        color:aquamarine;
+        font-size: 1.07rem;
+        margin-bottom: 4px;
+    }
+
+    .movie-rating {
+        color: #ffd166;
+        font-size: 1.08rem;
+        margin-bottom: 12px;
+    }
+
+    .movie-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* 按钮间距减小 */
+        margin-top: 12px; /* 距离顶部略缩 */
+        width: 100%;
+    }
+
+    .movie-btn {
+        padding: 7px 17px; /* 适当小一点 */
+        font-size: 1em; /* 字体再小一号 */
+        border-radius: 999px;
+        border: none;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        transition: background 0.19s, box-shadow 0.15s;
+        box-shadow: 0 1px 6px #111a;
+    }
+
+        .movie-btn.details {
+            background: #1fd9f9;
+            color: #fff;
+        }
+
+            .movie-btn.details:hover {
+                background: #0a60c9;
+                color: #fff;
+            }
+
+        .movie-btn.edit {
+            background: linear-gradient(90deg, #25c469 65%, #16e5ba 100%);
+            color: #fff;
+            box-shadow: 0 1px 7px #16e5ba33;
+            padding: 4px 11px; /* 更小的内边距 */
+            font-size: .93em; /* 更小字体 */
+        }
+
+            .movie-btn.edit:hover {
+                background: linear-gradient(90deg, #16e5ba 10%, #25c469 90%);
+                color: #fff;
+            }
+
+        .movie-btn.delete {
+            background: linear-gradient(90deg, #e43c3c 70%, #ff6363 100%);
+            color: #fff;
+            box-shadow: 0 1px 7px #e43c3c33;
+            padding: 4px 11px; /* 更小的内边距 */
+            font-size: .93em; /* 更小字体 */
+        }
+
+            .movie-btn.delete:hover {
+                background: linear-gradient(90deg, #ff6363 10%, #e43c3c 90%);
+                color: #fff;
+            }
+
+    .create-btn {
+        display: block;
+        margin: 0 0 24px auto;
+        background: linear-gradient(90deg, #26e0ae 55%, #1b6ec2 100%);
+        color: #fff;
+        font-weight: bold;
+        border-radius: 22px;
+        border: none;
+        padding: 12px 44px;
+        box-shadow: 0 2px 16px #1225;
+        letter-spacing: 1.7px;
+        font-size: 1.16em;
+    }
+
+        .create-btn:hover {
+            background: linear-gradient(90deg, #1b6ec2 10%, #22ffd9 100%);
+            color: #000 !important;
+            box-shadow: 0 4px 24px #22ffd9cc;
+        }
+</style>
+
+<h1 class="text-center mb-4" style="color:#26e0ae; letter-spacing:2px;">Movies</h1>
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="create-btn mb-4">+ Create New</a>
+}
+
+<div class="movie-cards-container">
+    @foreach (var item in Model)
+    {
+        <div class="movie-card animate__animated animate__fadeInUp">
+            @if (!string.IsNullOrEmpty(item.PosterUrl))
+            {
+                <img src="@item.PosterUrl" class="movie-poster" alt="@item.Title Poster" />
+            }
+            else
+            {
+                <div class="movie-poster d-flex align-items-center justify-content-center" style="background:#333; color:#aaa; font-size:1.2em;">
+                    No Image
+                </div>
+            }
+            <div class="movie-title">@item.Title</div>
+            <div class="movie-genre">@item.Genre</div>
+            <div class="movie-rating">Rating: @item.Rating</div>
+            <div class="movie-buttons">
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="movie-btn edit">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="movie-btn delete">Delete</a>
+                }
+                <a asp-action="Details" asp-route-id="@item.Id" class="movie-btn details">Details</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,251 @@
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background: url('/images/Movie2.jpg') center center/cover no-repeat fixed;
+        font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    }
+    .home-hero { 
+        position: relative;
+        min-height: 92vh; /* 改为 100vh */
+        height: 92vh; /* 明确指定高度 */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-bottom: 0.8cm;
+        background-image: url('/images/MovieTheater8.jpg');
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.33);
+
+        z-index: 1;
+        pointer-events: none;
+    }
+
+   
+
+    .home-hero h1 {
+        font-weight: 600; /* 更粗 */
+    }
+
+    .home-hero p {
+        font-weight: 450; /* 更粗 */
+    }
+
+    body {
+        background: #f5f6fa;
+        font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    }
+
+    .team-section {
+        max-width: 900px;
+        margin: 48px auto 0 auto;
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 8px 48px #0001;
+        padding: 48px 32px;
+    }
+
+    .team-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+    }
+
+        .team-title .highlight {
+            background: linear-gradient(90deg, #ffed99 100%, transparent 20%);
+            border-radius: 6px;
+            padding: 0 0.2em;
+            font-weight: 700;
+        }
+
+    .team-subtitle {
+        text-align: center;
+        color: #888;
+        font-size: 1.1rem;
+        margin-bottom: 38px;
+        letter-spacing: 0.02em;
+    }
+
+    .team-list {
+        display: flex;
+        gap: 36px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .team-card {
+        background: #f8f9fa;
+        border-radius: 20px;
+        box-shadow: 0 2px 14px #0002;
+        padding: 32px 28px 22px 28px;
+        max-width: 260px;
+        min-width: 230px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        transition: box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .team-card:hover {
+            box-shadow: 0 10px 32px #0002;
+        }
+
+        .team-card img {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 18px;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 16px #ffe06655;
+        }
+
+        .team-card .team-name {
+            font-weight: 600;
+            font-size: 1.17rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.01em;
+        }
+
+        .team-card .team-role {
+            color: #c18b00;
+            font-size: 1rem;
+            margin-bottom: 9px;
+            font-weight: 500;
+        }
+
+        .team-card .team-desc {
+            color: #444;
+            font-size: 0.97rem;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+       
+
+    .team-section {
+        padding: 28px 8px;
+        margin-bottom: 1cm;
+    }
+    
+
+    .custom-green-btn {
+        background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+        color: #fff !important;
+        border: none;
+        box-shadow: 0 4px 24px #43e97b44;
+        font-weight: 700;
+        font-size: 1.45rem;
+        letter-spacing: 0.03em;
+        transition: all 0.22s cubic-bezier(.4,2,.6,1.4);
+        padding: 0.8rem 2.7rem;
+        outline: none;
+    }
+
+        .custom-green-btn:focus,
+        .custom-green-btn:hover {
+            background: linear-gradient(90deg, #32cd32 0%, #1abc9c 100%);
+            box-shadow: 0 8px 32px #43e97b77;
+            transform: scale(1.06) translateY(-2px) rotate(-1deg);
+            color: #fff;
+            text-shadow: 0 2px 16px #4cffc222;
+        }
+
+
+</style> 
+<!-- Hero Banner Section -->
+<div class="home-hero" style="background-image: url('/images/MovieTheater3.jpg'); min-height: 80vh; position: relative;">
+    <div class="overlay"></div>
+    <div class="container text-center text-white d-flex flex-column justify-content-center align-items-center" style="height:80vh; position:relative; z-index:2;">
+        <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown">
+            🎬 FlixNow<br /><span style="font-size:2.2rem; font-weight:550;">Your Ticket to Unforgettable Movie Moments!
+        </h1>
+        <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s"
+           style="font-size: 1.5rem; font-weight: 350;">
+            Easy booking. Latest blockbusters. Seamless experience. <br>
+            Start your movie journey with just a click!
+        </p>
+        @{
+            var discoverHref = User.Identity.IsAuthenticated ? "/Movies" : "/Account/Login";
+        }
+        <a href="@discoverHref"
+           class="btn btn-lg custom-green-btn rounded-pill px-5 mt-4 animate__animated animate__pulse animate__infinite animate__delay-2s">
+            Discover More
+        </a>
+    </div>
+</div>
+
+<!-- Mission Section -->
+<section class="py-5 bg-dark text-white" style="background-image: url('/images/MovieTheater7.jpg") id="mission">
+    <div class="container text-center" class="team-card animate__animated animate__fadeInUp animate__delay-3s">
+        <h2 class="mb-4 animate__animated animate__fadeInLeft">🚀 Our Mission</h2>
+        <p class="lead mx-auto animate__animated animate__fadeInRight" style="max-width: 800px;">
+            FlixNow is dedicated to transforming the movie-going experience for everyone.
+            <br><span style="font-weight:600;">We strive to make ticket booking simple, fast, and delightful — giving every movie lover a front-row seat to excitement and entertainment!</span>
+        </p>
+    </div>
+</section>
+
+<!-- Team Section -->
+<div class="team-section" >
+    <div class="team-title">
+        Meet <span class="highlight">Our Team</span>
+    </div>
+    <div class="team-subtitle">Driving product innovation and seamless execution</div>
+    <div class="team-list">
+        <!-- 成员1 CEO Tian Zhiran -->
+        <div class="team-card">
+            <img src="/images/Tian.jpg" alt="Tian Zhiran">
+            <div class="team-name">Tian Zhiran</div>
+            <div class="team-role">CEO &amp; Program Designer</div>
+            <div class="team-desc">Responsible for product design and overall architecture. Focused on innovation and user experience.</div>
+        </div>
+        <!-- 成员2 Lee Jaehyun -->
+        <div class="team-card">
+            <img src="/images/Lee.jpg" alt="Lee Jaehyun">
+            <div class="team-name">Lee Jaehyun</div>
+            <div class="team-role">Lead Developer</div>
+            <div class="team-desc">In charge of all subsequent development and implementation, ensuring delivery and technical quality.</div>
+        </div>
+    </div>
+</div>
+<!-- CTA Section -->
+<section class="py-5 text-white" style="background: linear-gradient(90deg,#1a2980 0%,#26d0ce 100%);">
+  <div class="container text-center">
+    <h2 class="mb-3 animate__animated animate__fadeIn">Ready for your next movie night?</h2>
+    <p class="lead mb-4">Sign up today and never miss out on your favorite films!</p>
+        @{
+            var ctaHref = User.Identity.IsAuthenticated ? "/Movies" : "/Account/Register";
+            var ctaLoginHref = User.Identity.IsAuthenticated ? "/Movies" : "/Account/Login";
+        }
+        <a href="@ctaHref" class="btn btn-lg btn-warning px-5 me-2 animate__animated animate__pulse animate__infinite">
+            Get Started
+        </a>
+        <a href="@ctaLoginHref" class="btn btn-lg btn-outline-light px-5 animate__animated animate__fadeInUp animate__delay-1s">
+            Already have an account?
+        </a>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+

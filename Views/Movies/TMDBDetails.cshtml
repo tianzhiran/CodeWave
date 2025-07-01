@@ -1,0 +1,13 @@
+﻿@model FlixNow.Models.MovieDetailsViewModel
+
+<h2>
+    @Model.English.Title
+    <span style="color:gray;font-size:1em;">（@Model.Chinese.Title）</span>
+</h2>
+<p><strong>English Overview:</strong> @Model.English.Overview</p>
+<p><strong>中文简介:</strong> @Model.Chinese.Overview</p>
+<p><strong>Rating:</strong> @Model.English.VoteAverage / 10</p>
+@if (!string.IsNullOrEmpty(Model.English.PosterPath))
+{
+    <img src="https://image.tmdb.org/t/p/w500@Model.English.PosterPath" alt="Poster" style="max-width:300px;" />
+}

@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "_Layout";
+}
+@{
+    var returnUrl = Context.Request.Query["ReturnUrl"];
+}
+
+<style>
+    body {
+        position: relative;
+        min-height: 100vh;
+        background: transparent; /* 图片主色调的深色，可换成 transparent */
+    }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: url('/images/MovieTheater1.jpg') center center/cover no-repeat;
+            opacity: 0.40;
+            pointer-events: none;
+            /* backdrop-filter: blur(2px);  // 如果需要模糊效果可以打开 */
+        }
+
+    .table-responsive {
+        background: transparent;
+        border-radius: 14px;
+        box-shadow: 0 8px 36px #0006;
+        padding: 16px;
+    }
+</style>
+
+<style>
+    body {
+        font-family: 'Inter', 'Poppins', 'Roboto', Arial, sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* .cinema-card { */
+    /*     background: rgba(22,26,35,0.93); */
+    /*     box-shadow: 0 6px 30px #0009, 0 0 0 #fff; */
+    /*     border-radius: 20px; */
+    /*     border: 1.5px solid #243b55; */
+    /*     margin-top: 60px; */
+    /*     margin-bottom: 60px; */
+    /*     max-width: 410px; */
+    /*     width: 100%; */
+    /*     position: relative; */
+    /* } */
+
+    .cinema-card {
+        background: rgba(22,26,35,0.93);
+        box-shadow: 0 6px 30px #0009, 0 0 0 #fff;
+        border-radius: 20px;
+        border: 1.5px solid #243b55;
+        margin-top: 60px;   
+        margin-bottom: 60px;
+        max-width: 460px; /* 原410px，提升到540px，约多5cm */
+        min-width: 370px; /* 最小宽度，防止过窄 */
+        width: 100%;
+        padding: 36px 36px 28px 36px; /* 增加内边距，上右下左 */
+        position: relative;
+    }
+        .cinema-card:before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            top: 8px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ffd700bb 15%, #fff0 85%);
+            filter: blur(1px);
+            z-index: 0;
+            opacity: .5;
+        }
+
+    .cinema-btn {
+        background: linear-gradient(90deg, #ff4757 10%, #1e90ff 90%);
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0 0 14px #ffd70066;
+        border-radius: 999px;
+        transition: box-shadow 0.25s, background 0.25s;
+    }
+
+        .cinema-btn:hover {
+            box-shadow: 0 0 30px #ffd700cc;
+            background: linear-gradient(90deg, #1e90ff 10%, #ff4757 90%);
+        }
+
+    .cinema-title {
+        color: #ffd700;
+        text-shadow: 0 1px 10px #fff2, 0 0 20px #2226;
+        font-family: 'Inter', 'Arial', sans-serif;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+
+    .input-modern:focus {
+        box-shadow: 0 0 8px #ffd70088, 0 0 2px #00bfff;
+        border-color: #ffd700;
+    }
+
+    .subtext {
+        color: #bbb;
+        letter-spacing: .5px;
+    }
+    /* “电影票”形状点缀 */
+    .ticket-edge {
+        position: absolute;
+        top: 20px;
+        left: -20px;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #161a23;
+        box-shadow: 0 0 0 8px #243b5522;
+    }
+
+    .ticket-edge-right {
+        left: unset;
+        right: -20px;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="cinema-card p-4 shadow position-relative">
+        <div class="ticket-edge"></div>
+        <div class="ticket-edge ticket-edge-right"></div>
+        <h2 class="text-center cinema-title mb-3">
+            <i class="bi bi-film"></i> FlixNow Login
+        </h2>
+        <form asp-action="Login" method="post">
+            <input type="hidden" name="returnUrl" value="@returnUrl" />
+            <div class="mb-3">
+                <label for="email" class="form-label subtext">Email</label>
+                <input name="email" class="form-control input-modern" placeholder="Enter your email" required />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label subtext">Password</label>
+                <input name="password" type="password" class="form-control input-modern" placeholder="Enter your password" required />
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label subtext">Login as</label>
+                <select name="role" class="form-control input-modern" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Customer">Customer</option>
+                </select>
+            </div>
+            <button type="submit" class="cinema-btn w-100 mt-2">Login</button>
+        </form>
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger mt-3 text-center rounded-pill">@ViewBag.Error</div>
+        }
+        <div class="text-center mt-3 subtext">
+            Not registered yet? <a href="/Account/Register" style="color:#ffd700;">Create Account</a>
+        </div>
+    </div>
+</div>

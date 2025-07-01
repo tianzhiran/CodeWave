@@ -1,0 +1,115 @@
+﻿@model FlixNow.Models.User
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "_Layout";
+}
+<style>
+    body {
+        position: relative;
+        min-height: 100vh;
+        background: rgba(0,0,0,0.33);
+        ; /* 图片主色调的深色，可换成 transparent */
+    }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: url('/images/MovieTheater6.jpg') center center/cover no-repeat;
+            opacity: 0.40;
+            pointer-events: none;
+            /* backdrop-filter: blur(2px);  // 如果需要模糊效果可以打开 */
+        }
+
+    .table-responsive {
+        background: transparent;
+        border-radius: 14px;
+        box-shadow: 0 8px 36px #0006;
+        padding: 16px;
+    }
+</style>
+
+<!-- Sci-fi themed background -->
+<style>
+    body {
+        background: linear-gradient(135deg, #11131a 0%, #243b55 100%);
+        background-attachment: fixed;
+    }
+
+    .scifi-card {
+        background: rgba(30,36,55,0.98);
+        box-shadow: 0 0 24px #08f, 0 0 8px #0ff;
+        border-radius: 20px;
+        border: 1.5px solid #0ff;
+        max-width: 400px; /* <= 修改这里 */
+        width: 100%;
+    }
+    .scifi-btn {
+        background: linear-gradient(90deg, #00f0ff, #08f);
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0 0 12px #08f, 0 0 4px #0ff;
+        border-radius: 999px;
+        transition: box-shadow 0.2s, background 0.2s;
+    }
+    .scifi-btn:hover {
+        box-shadow: 0 0 30px #0ff, 0 0 16px #08f;
+        background: linear-gradient(90deg, #08f, #00f0ff);
+    }
+    .neon-text {
+        color: #00f0ff;
+        text-shadow: 0 0 10px #0ff, 0 0 30px #08f;
+        letter-spacing: 2px;
+        font-family: 'Orbitron', 'Consolas', 'Arial', sans-serif;
+    }
+    .input-neon:focus {
+        box-shadow: 0 0 12px #08f, 0 0 4px #0ff;
+        border-color: #0ff;
+    }
+    .scifi-footer {
+        color: #aaa;
+        letter-spacing: 1px;
+    }
+</style>
+
+<!-- Optionally import a sci-fi Google font -->
+<link href="https://fonts.googleapis.com/css?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="scifi-card p-4" style="max-width: 460px; width:100%;">
+        <h2 class="text-center neon-text mb-4">
+            <i class="bi bi-film"></i> FLIXNOW SIGN UP
+        </h2>
+        <form asp-action="Register" method="post">
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label neon-text">Email</label>
+                <input asp-for="Email" class="form-control input-neon" placeholder="Type your email..." required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label neon-text">Password</label>
+                <input asp-for="Password" type="password" class="form-control input-neon" placeholder="Set a password..." required />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Role" class="form-label neon-text">Register as</label>
+                <select asp-for="Role" class="form-control input-neon" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Customer">Customer</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <button type="submit" class="scifi-btn w-100 mt-2">Create Account</button>
+        </form>
+        <div class="text-center mt-3 scifi-footer">
+            Already registered? <a href="/Account/Login" style="color:#00f0ff;">Login here</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

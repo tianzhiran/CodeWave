@@ -1,0 +1,102 @@
+﻿@* @model FlixNow.Models.Showtime *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Create"; *@
+@* } *@
+
+@* <h1>Create</h1> *@
+
+@* <h4>Showtime</h4> *@
+@* <hr /> *@
+@* <div class="row"> *@
+@*     <div class="col-md-4"> *@
+@*         <form asp-action="Create"> *@
+@*             <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="StartTime" class="control-label"></label> *@
+@*                 <input asp-for="StartTime" class="form-control" /> *@
+@*                 <span asp-validation-for="StartTime" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="MovieId" class="control-label"></label> *@
+@*                 <select asp-for="MovieId" class ="form-control" asp-items="ViewBag.MovieId"></select> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Hall" class="control-label"></label> *@
+@*                 <input asp-for="Hall" class="form-control" /> *@
+@*                 <span asp-validation-for="Hall" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <input type="submit" value="Create" class="btn btn-primary" /> *@
+@*             </div> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@
+
+@* <div> *@
+@*     <a asp-action="Index">Back to List</a> *@
+@* </div> *@
+
+@* @section Scripts { *@
+@*     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+@* } *@
+
+@model FlixNow.Models.Showtime
+
+@{
+    ViewData["Title"] = "Create";
+}
+@if (ViewBag.Errors != null && ((List<string>)ViewBag.Errors).Count > 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var err in (List<string>)ViewBag.Errors)
+            {
+                <li>@err</li>
+            }
+        </ul>
+    </div>
+}
+
+<h1 class="text-center mb-4" style="color:#26e0ae; letter-spacing:2px;">Create Showtime</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0" style="background:rgba(30,30,30,0.98);">
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="StartTime" class="control-label" style="color:#1b6ec2;"></label>
+                        <input asp-for="StartTime" type="datetime-local" class="form-control bg-dark text-white border-0" />
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="MovieId" class="control-label" style="color:#1b6ec2;"></label>
+                        <select asp-for="MovieId" class="form-control bg-dark text-white border-0" asp-items="ViewBag.MovieId"></select>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Hall" class="control-label" style="color:#1b6ec2;"></label>
+                        <input asp-for="Hall" class="form-control bg-dark text-white border-0" />
+                        <span asp-validation-for="Hall" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid">
+                        <input type="submit" value="Create" class="btn btn-success btn-lg fw-bold" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a asp-action="Index" class="text-decoration-none" style="color:#26e0ae;">&#8592; Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

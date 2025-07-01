@@ -1,0 +1,197 @@
+﻿@* @model FlixNow.Models.Movie *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Edit"; *@
+@* } *@
+
+@* <h1>Edit</h1> *@
+
+@* <h4>Movie</h4> *@
+@* <hr /> *@
+@* <div class="row"> *@
+@*     <div class="col-md-4"> *@
+@*         <form asp-action="Edit"> *@
+@*             <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+@*             <input type="hidden" asp-for="Id" /> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Title" class="control-label"></label> *@
+@*                 <input asp-for="Title" class="form-control" /> *@
+@*                 <span asp-validation-for="Title" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Description" class="control-label"></label> *@
+@*                 <input asp-for="Description" class="form-control" /> *@
+@*                 <span asp-validation-for="Description" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="PosterUrl" class="control-label"></label> *@
+@*                 <input asp-for="PosterUrl" class="form-control" /> *@
+@*                 <span asp-validation-for="PosterUrl" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Genre" class="control-label"></label> *@
+@*                 <input asp-for="Genre" class="form-control" /> *@
+@*                 <span asp-validation-for="Genre" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Rating" class="control-label"></label> *@
+@*                 <input asp-for="Rating" class="form-control" /> *@
+@*                 <span asp-validation-for="Rating" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <input type="submit" value="Save" class="btn btn-primary" /> *@
+@*             </div> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@
+
+@* <div> *@
+@*     <a asp-action="Index">Back to List</a> *@
+@* </div> *@
+
+@* @section Scripts { *@
+@*     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+@* } *@
+
+@model FlixNow.Models.Movie
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<style>
+    body {
+        position: relative;
+        min-height: 100vh;
+        background: transparent; /* 图片主色调的深色，可换成 transparent */
+    }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: url('/images/MovieTheater7.jpg') center center/cover no-repeat;
+            opacity: 0.40;
+            pointer-events: none;
+            /* backdrop-filter: blur(2px);  // 如果需要模糊效果可以打开 */
+        }
+
+    .table-responsive {
+        background: transparent;
+        border-radius: 14px;
+        box-shadow: 0 8px 36px #0006;
+        padding: 16px;
+    }
+</style>
+
+<style>
+    .edit-label {
+        color: #6ceada; /* 主色调柔和一点 */
+        font-weight: 600;
+    }
+
+    .edit-input {
+        background: #181c20;
+        color: #e9ecef;
+        border: 2px solid #6ceada;
+        border-radius: 7px;
+    }
+
+        .edit-input:focus {
+            border-color: #84e9c9;
+            box-shadow: 0 0 0 0.08rem #6ceada;
+            background: #1d2328;
+            color: #fff;
+        }
+
+    .edit-card {
+        background: rgba(22,26,33,0.93);
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 2px 16px #6ceada11;
+    }
+
+    .edit-btn {
+        background: linear-gradient(90deg, #6ceada 50%, #6ceadaaa 100%);
+        color: #2a343d;
+        border: none;
+        font-weight: 600;
+        box-shadow: 0 2px 10px #6ceada22;
+        border-radius: 999px;
+        transition: box-shadow 0.18s, background 0.18s;
+    }
+
+        .edit-btn:hover {
+            background: linear-gradient(90deg, #51c8b7 40%, #92f0e4 100%);
+            color: #1a2227;
+        }
+
+    .edit-link {
+        color: #6ceada;
+        font-weight: 600;
+        text-shadow: 0 2px 8px #0002;
+        text-decoration: none;
+    }
+
+        .edit-link:hover {
+            color: #92f0e4;
+        }
+</style>
+
+<h1 class="text-center mb-4" style="color:#6ceada; letter-spacing:2px;">Edit Movie</h1>
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card shadow-lg edit-card">
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Title" class="control-label edit-label">Title</label>
+                        <input asp-for="Title" class="form-control edit-input" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="control-label edit-label">Description</label>
+                        <input asp-for="Description" class="form-control edit-input" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="PosterUrl" class="control-label edit-label">Poster URL</label>
+                        <input asp-for="PosterUrl" class="form-control edit-input" />
+                        <span asp-validation-for="PosterUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Genre" class="control-label edit-label">Genre</label>
+                        <input asp-for="Genre" class="form-control edit-input" />
+                        <span asp-validation-for="Genre" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Rating" class="control-label edit-label">Rating</label>
+                        <input asp-for="Rating" class="form-control edit-input" />
+                        <span asp-validation-for="Rating" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid">
+                        <input type="submit" value="Save" class="btn btn-lg fw-bold edit-btn" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a asp-action="Index" class="edit-link">&#8592; Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
